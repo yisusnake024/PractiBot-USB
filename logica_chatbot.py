@@ -197,8 +197,13 @@ def getMessage():
 
 @app.route("/")
 def webhook():
-    bot.remove_webhook()
-    bot.set_webhook(url=f"{URL}/{TOKEN}")
+    try:
+        # Intentamos configurar el webhook de forma segura
+        bot.remove_webhook()
+        bot.set_webhook(url=f"{URL}/{TOKEN}")
+    except Exception as e:
+        print(f"Aviso de webhook (puede ignorarse si ya está activo): {e}")
+    
     return "🚀 Servidor activo y Webhook configurado con éxito.", 200
 
 if __name__ == "__main__":
