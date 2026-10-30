@@ -23,8 +23,8 @@ WEBHOOK_SECRET = os.environ["WEBHOOK_SECRET"]
 URL = os.environ["RENDER_EXTERNAL_URL"].rstrip("/")
 
 # Puedes cambiar el modelo aquí si eliges otro en la documentación de Gemini.
-GEMINI_MODEL = "gemini-3.8-flash"
-GEMINI_FALLBACK_MODEL = "gemini-3.6-flash"
+GEMINI_MODEL = "gemini-3.6-flash"
+GEMINI_FALLBACK_MODEL = "gemini-3.8-flash"
 
 # threaded=False procesa el mensaje durante la solicitud y permite registrar errores.
 bot = telebot.TeleBot(TOKEN, threaded=False)
