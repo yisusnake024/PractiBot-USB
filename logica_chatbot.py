@@ -7,16 +7,16 @@ import google.generativeai as genai
 # ==========================================
 # 1. CONFIGURACIÓN DE VARIABLES DE ENTORNO
 # ==========================================
-TOKEN = os.environ.get('TELEGRAM_TOKEN', 'TU_TOKEN_AQUI')
+TOKEN = os.environ.get('TELEGRAM_TOKEN', '8172026872:AAHK_FSIIMfSKfwLC6W5rUzx7fqtZF8FOzI')
 URL = os.environ.get('RENDER_EXTERNAL_URL', 'https://practibot-usb.onrender.com/')
-GEMINI_KEY = os.environ.get('GEMINI_API_KEY', 'TU_API_KEY_DE_GEMINI_AQUI')
+GEMINI_KEY = os.environ.get('GEMINI_API_KEY', 'AQ.Ab8RN6LMjC7m8DyZY3I6Nrh0yFJaQPOVeG1yAyryt57GN5peLA')
 
 # Inicialización de Bot y Servidor
 bot = telebot.TeleBot(TOKEN)
 app = Flask(__name__)
 
 # Configuración de Gemini
-if GEMINI_KEY and GEMINI_KEY != 'TU_API_KEY_DE_GEMINI_AQUI':
+if GEMINI_KEY and GEMINI_KEY != 'AQ.Ab8RN6LMjC7m8DyZY3I6Nrh0yFJaQPOVeG1yAyryt57GN5peLA':
     genai.configure(api_key=GEMINI_KEY)
     modelo_gemini = genai.GenerativeModel('gemini-1.5-flash')
 
