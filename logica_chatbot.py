@@ -8,7 +8,7 @@ import google.generativeai as genai
 # 1. CONFIGURACIÓN DE VARIABLES DE ENTORNO
 # ==========================================
 TOKEN = os.environ.get('TELEGRAM_TOKEN', 'TU_TOKEN_AQUI')
-URL = os.environ.get('RENDER_EXTERNAL_URL', 'https://tu-app.onrender.com')
+URL = os.environ.get('RENDER_EXTERNAL_URL', 'https://practibot-usb.onrender.com/')
 GEMINI_KEY = os.environ.get('GEMINI_API_KEY', 'TU_API_KEY_DE_GEMINI_AQUI')
 
 # Inicialización de Bot y Servidor
