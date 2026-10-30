@@ -24,6 +24,7 @@ URL = os.environ["RENDER_EXTERNAL_URL"].rstrip("/")
 
 # Puedes cambiar el modelo aquí si eliges otro en la documentación de Gemini.
 GEMINI_MODEL = "gemini-3.8-flash"
+GEMINI_FALLBACK_MODEL = "gemini-3.6-flash"
 
 # threaded=False procesa el mensaje durante la solicitud y permite registrar errores.
 bot = telebot.TeleBot(TOKEN, threaded=False)
@@ -70,14 +71,27 @@ CAREER_DATA = {
 
 
 def generar_respuesta_ia(prompt):
-    """Llama a Gemini y devuelve el texto generado."""
-    response = gemini.models.generate_content(
-        model=GEMINI_MODEL,
-        contents=prompt,
+    """Llama a Gemini y usa un segundo modelo si el principal falla."""
+    for model_name in (GEMINI_MODEL, GEMINI_FALLBACK_MODEL):
+        try:
+            response = gemini.models.generate_content(
+                model=model_name,
+                contents=prompt,
+            )
+
+            if response.text:
+                return response.text.strip()
+
+            logger.warning("Gemini no devolvió texto usando %s", model_name)
+        except Exception:
+            logger.exception(
+                "Falló Gemini usando %s; probaré el siguiente modelo",
+                model_name,
+            )
+
+    raise RuntimeError(
+        "Gemini no pudo generar una respuesta con los modelos disponibles"
     )
-    if not response.text:
-        raise RuntimeError("Gemini devolvió una respuesta vacía")
-    return response.text.strip()
 
 
 def texto_html(texto):
@@ -403,3 +417,4 @@ if __name__ == "__main__":
         host="0.0.0.0",
         port=int(os.environ.get("PORT", "5000")),
     )
+
